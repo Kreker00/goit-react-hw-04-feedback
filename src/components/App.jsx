@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { GlobalStyle } from './GlobalStyle';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
+import { useState } from 'react';
 
 export const App = () => {
   const [feedback, setFeedback] = useState({
@@ -35,7 +35,7 @@ export const App = () => {
   return (
     <>
       <FeedbackOptions
-        options={[good, neutral, bad]}
+        options={['good', 'neutral', 'bad']}
         onLeaveFeedback={onLeaveFeedback}
       />
       {total === 0 ? (

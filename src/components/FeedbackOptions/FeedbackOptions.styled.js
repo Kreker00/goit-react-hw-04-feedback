@@ -16,13 +16,22 @@ export const Button = styled.button`
   padding: 10px;
   cursor: pointer;
   background-color: #4caf50;
-  color: white;
+  color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 40%;
   width: 100px;
+  height: 100px;
   display: inline-block;
   margin: auto;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
-    background-color: #45a049;
+    transform: scale(1.03);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: solid 2px black;
   }
+`;
+
+export const StyledBtnBox = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
 `;
