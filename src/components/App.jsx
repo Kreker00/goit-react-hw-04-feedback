@@ -4,26 +4,39 @@ import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
 
-export const App = ({ }) => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setDad] = useState(0);
-   
-   countTotalFeedbacks() {
-    const total = Object.values({ good, neutral, bad }).reduce(
-      (acc, value) => acc + value,
-      0
-    );
-    return total;
-  }
+export const App = () => {
+  const [feedback, setFeedback] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
-  const total = this.countTotalFeedbacks();
+  const onLeaveFeedback = name => {
+    setFeedback(prevState => {
+      return {
+        ...prevState,
+        [name]: prevState[name] + 1,
+      };
+    });
+  };
+
+  const countTotalFeedbacks = () => {
+    return Object.values(feedback).reduce((acc, value) => acc + value, 0);
+  };
+
+  const countPositiveFeedbackPercentage = () => {
+    const total = countTotalFeedbacks();
+    return total ? ((feedback.good / total) * 100).toFixed(2) : 0;
+  };
+
+  const total = countTotalFeedbacks();
+  const { good, neutral, bad } = feedback;
 
   return (
     <>
       <FeedbackOptions
-        options={Object.keys(this.state)}
-        onLeaveFeedback={this.onLeaveFeedback}
+        options={[good, neutral, bad]}
+        onLeaveFeedback={onLeaveFeedback}
       />
       {total === 0 ? (
         <Notification message="There is no feedback" />
@@ -33,11 +46,10 @@ export const App = ({ }) => {
           neutral={neutral}
           bad={bad}
           total={total}
-          positivePercentage={this.countPositiveFeedbackPercentage()}
+          positivePercentage={countPositiveFeedbackPercentage()}
         />
       )}
       <GlobalStyle />
     </>
   );
-}
-
+};
